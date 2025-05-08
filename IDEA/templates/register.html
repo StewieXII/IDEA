@@ -1,12 +1,30 @@
-{% extends 'base.html' %}
-{% block title %}Registro{% endblock %}
-{% block content %}
-<h2>Registro</h2>
-<form method="POST">
-    {{ form.hidden_tag() }}
-    {{ form.nombre.label }} {{ form.nombre() }}<br>
-    {{ form.email.label }} {{ form.email() }}<br>
-    {{ form.password.label }} {{ form.password() }}<br>
-    {{ form.submit() }}
-</form>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+        <div class="brand-logo"></div>
+        <div class="brand-title">Register</div>
+        <div class="inputs">
+          <form method="POST" action="{{ url_for('register') }}">
+            {{ form.hidden_tag() }}  <!-- Para incluir el token CSRF de Flask -->
+
+            <label>EMAIL</label>
+            {{ form.email(class="input", placeholder="example@test.com") }}
+
+            <label>PASSWORD</label>
+            {{ form.contraseña(class="input", placeholder="Password") }}
+            
+            <button type="submit">Sign up</button>
+          </form>
+        </div>
+
+        <a href="{{ url_for('login') }}">Already have an account? Log in</a>
+    </div>
+</body>
+</html>

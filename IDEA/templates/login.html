@@ -1,11 +1,29 @@
-{% extends 'base.html' %}
-{% block title %}Login{% endblock %}
-{% block content %}
-<h2>Iniciar sesión</h2>
-<form method="POST">
-    {{ form.hidden_tag() }}
-    {{ form.email.label }} {{ form.email() }}<br>
-    {{ form.password.label }} {{ form.password() }}<br>
-    {{ form.submit() }}
-</form>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+        <div class="brand-logo"></div>
+        <div class="brand-title">Register</div>
+        <div class="inputs">
+          
+        <form method="POST" action="{{ url_for('login') }}">
+            {{ form.hidden_tag() }}  <!-- Para incluir el token CSRF de Flask -->
+
+            <label>EMAIL</label>
+            {{ form.email(class="input", placeholder="example@test.com") }}
+
+            <label>PASSWORD</label>
+            {{ form.contraseña(class="input", placeholder="Password") }}
+            
+            <button type="submit">Login</button>
+        </form>
+        </div>
+</body>
+</html>
+

@@ -1,13 +1,14 @@
-from app import db
+from . import db  # Importar la instancia de db desde __init__.py
 from flask_login import UserMixin
-from app import login_manager
+from datetime import datetime
 
-@login_manager.user_loader
-def load_user(user_id):
-    return Usuario.query.get(int(user_id))
+class Usuario(db.Model, UserMixin):  # Usa la instancia de db que está en __init__.py
+    __tablename__ = 'users'
+    
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    email = db.Column(db.String(100), nullable=False, unique=True)
+    contraseña = db.Column(db.String(255), nullable=False)
+    fecha_creacion = db.Column(db.DateTime, default=datetime.utcnow)
 
-class Usuario(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    nombre = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(150), unique=True, nullable=False)
-    password = db.Column(db.String(200), nullable=False)
+    def __repr__(self):
+        return f'<Usuario {self.email}>'
