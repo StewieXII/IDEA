@@ -3,25 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Mobiliario de Oficina{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <header>
-        <a href="{{ url_for('home') }}">Home</a>
-        <a href="{{ url_for('mesas') }}">Mesas</a>
-        <a href="{{ url_for('sillas') }}">Sillas</a>
-        <a href="{{ url_for('accesorios') }}">Accesorios</a>
-        <a href="{{ url_for('carrito') }}">Carrito</a>
-        <a href="{{ url_for('login') }}">Login</a>
-        <a href="{{ url_for('register') }}">Register</a>
-    </header>
-    <hr>
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
-    <footer>
 
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+    <meta name="description" content="Mobiliario de oficina personalizado">
+    <meta name="keywords" content="oficina, muebles, diseño">
+    <meta name="author" content="Tu nombre">
+    <meta name="format-detection" content="telephone=no">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/carousel.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- JS -->
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/superfish.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.mobilemenu.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.easing.1.3.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.equalheights.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.carouFredSel-6.1.0.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.touchSwipe.min.js') }}"></script>
+
+    <script>
+    $(window).on('load', function() {
+        jQuery(".maxheight").equalHeights();
+        $('#carousel-fred').carouFredSel({
+            auto: false,
+            responsive: true,
+            width: '100%',
+            scroll: 1,
+            prev: '#prev',
+            next: '#next',
+            pagination: false,
+            mousewheel: true,
+            items: {
+                height: 'auto',
+                width: $(window).width() > 767 ? 900 : 320,
+                visible: {
+                    min: 1,
+                    max: 3
+                }
+            },
+            swipe: {
+                onMouse: true,
+                onTouch: true
+            }
+        });
+    });
+    </script>
+</head>
+
+<body id="home-page">
+    <!-- ============================== HEADER ============================== -->
+    <header>
+        <div class="container">
+            <div class="navbar navbar_ clearfix">
+                <div class="navbar-inner">
+                    <div class="clearfix">
+                        <h1 class="brand">
+                            <a href="{{ url_for('home') }}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo"></a>
+                            <span>decore</span>
+                        </h1>
+                        <div class="text-left">¡Si lo imaginas, lo fabricamos!</div>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav sf-menu clearfix">
+                                <li><a href="{{ url_for('home') }}">Inicio</a></li>
+                                <li><a href="{{ url_for('mesas') }}">Mesas</a></li>
+                                <li><a href="{{ url_for('sillas') }}">Sillas</a></li>
+                                <li><a href="{{ url_for('accesorios') }}">Accesorios</a></li>
+                                <li><a href="{{ url_for('carrito') }}">Carrito</a></li>
+                                <li><a href="{{ url_for('login') }}">Login</a></li>
+                                <li><a href="{{ url_for('register') }}">Register</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================== CONTENT ============================== -->
+    <div id="content">
+        <div class="list_carousel responsive">
+            <ul id="carousel-fred">      
+                <li><img src="{{ url_for('static', filename='img/slide.jpg') }}" alt=""></li>
+                <li><img src="{{ url_for('static', filename='img/slide-1.jpg') }}" alt=""></li>
+                <li><img src="{{ url_for('static', filename='img/slide-2.jpg') }}" alt=""></li>
+                <li><img src="{{ url_for('static', filename='img/slide-3.jpg') }}" alt=""></li>
+                <li><img src="{{ url_for('static', filename='img/slide-4.jpg') }}" alt=""></li>
+            </ul>
+            <div class="div-control">
+                <a href="#" id="prev"></a>
+                <a href="#" id="next"></a>
+            </div>
+        </div>
+
+        <div class="light-content">
+            <div class="container"> 
+                <div class="row">
+                    <ul class="thumbnails">
+                        <li class="thumbnail span3">
+                            <div class="block-thumbnail maxheight">
+                                <figure class="img-polaroid"><img src="{{ url_for('static', filename='img/page-img.jpg') }}" alt=""></figure>
+                                <h2>Soluciones PRO</h2>
+                                <span class="font11">ferruoais lasuasiuaysa dolores easertne...</span>
+                                <p>Monlaseertser loms gravida atrsus neuct us aloecenmagna...</p>
+                                <a href="#" class="btn btn-1">Seguir leyendo</a>
+                            </div>
+                        </li>
+                        <li class="thumbnail span3">
+                            <div class="block-thumbnail maxheight">
+                                <figure class="img-polaroid"><img src="{{ url_for('static', filename='img/page-img-1.jpg') }}" alt=""></figure>
+                                <h2>Materiales Eco</h2>
+                                <span class="font11">quntugni juyatsas nausy dolores easertne...</span>
+                                <p>Aloecenonec accumsan malesea asit acone nataytsertas...</p>
+                                <a href="#" class="btn btn-1">Seguir leyendo</a>
+                            </div>
+                        </li>
+                        <li class="thumbnail span3">
+                            <div class="block-thumbnail maxheight">
+                                <figure class="img-polaroid"><img src="{{ url_for('static', filename='img/page-img-2.jpg') }}" alt=""></figure>
+                                <h2>Consejos sobre diseño</h2>
+                                <span class="font11">miutyas loiyas quntusera dolores easertne...</span>
+                                <p>Gasaser loms gravida atrsus neuct aloecenmagna...</p>
+                                <a href="#" class="btn btn-1">Seguir leyendo</a>
+                            </div>
+                        </li>
+                        <li class="thumbnail span3">
+                            <div class="block-thumbnail maxheight">
+                                <figure class="img-polaroid"><img src="{{ url_for('static', filename='img/page-img-3.jpg') }}" alt=""></figure>
+                                <h2>IDEAs propias</h2>
+                                <span class="font11">brtsauonse quntugni asertne voptate...</span>
+                                <p>Bastrtser lomravida atrsus neuct us aloecenmagna...</p>
+                                <a href="#" class="btn btn-1">Seguir leyendo</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="row">
+                    <article class="span12">
+                        <div class="banner">
+                            <span><em>Hemos</em> lanzado  <strong><span>Nueva</span> colección</strong></span>
+                            <strong>Sé el primero en echarle un ojo al Catalogo </strong>
+                            <p>Beciegast nveriti vitaesaert  asety kertya aset aplicabrde ertyasnemo <span>eniptaiades uytrsas</span> leyrterteertas bytrasa.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container block-container">
+        <div class="row">
+            <div class="div-block-container">
+                <article class="span2">
+                    <div class="div-list">
+                        <ul class="list">
+                            <li><a href="#">galeria de fotos</a></li>
+                            <li><a href="#">noticias &amp; eventos</a></li>                                                                                   
+                        </ul>
+                    </div>
+                </article>
+                <article class="span9 offset1">
+                    <div class="row">
+                        <article class="span4">
+                            <h2>Últimos proyectos</h2>
+                            <div class="block-indent">
+                                <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/page-img-4.png') }}" alt=""></figure>
+                                <div class="extra-wrap">
+                                    <h3>kyatsas liuaysas</h3>
+                                    <p>Monlase dusce hertser loms gravida atrsus aloecen magna...</p>
+                                    <a href="#" class="link">seguir leyendo</a>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="span5">
+                            <h2>Nuevas Publicaciones</h2>
+                            <div class="block-indent">
+                                <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/page-img-5.png') }}" alt=""></figure>
+                                <div class="extra-wrap">
+                                    <h3>fertarsa Jauystas eras</h3>
+                                    <p>Kerta duscertser lomseaser baytsras gravida atrsueuctus...</p>
+                                    <a href="#" class="link">seguir leyendo</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================== FOOTER ============================== -->
+    <footer>
+        <div class="container block-container">
+            <div class="row">
+                <article class="span12">
+                    <div class="footer-div">
+                        <span><span>DE</span>CORE &copy; 2025 • </span>
+                        <a href="#">Política de privacidad</a>
+                    </div>
+                    <ul class="soc-icons">
+                        <li><a href="#" class="icon"></a></li>
+                        <li><a href="#" class="icon-1"></a></li>
+                        <li><a href="#" class="icon-2"></a></li>
+                        <li><a href="#" class="icon-3"></a></li>
+                    </ul>
+                </article>
+            </div>
+        </div>
     </footer>
+
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
 </body>
 </html>
