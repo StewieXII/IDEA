@@ -1,24 +1,82 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block title %}Catálogo de Sillas{% endblock %}
+{% block extra_head %}
+<script src="{{ url_for('static', filename='js/jquery.isotope.min.js') }}"></script>
+<script>
+$(function(){
+  var $container = $('#container');
+  $container.isotope({ });
+  $('#filters a').click(function(){
+    var selector = $(this).attr('data-filter');
+    $container.isotope({ filter: selector });
+    $('#filters a').removeClass('selected');
+    $(this).addClass('selected');
+    return false;
+  });
+});
+</script>
+{% endblock %}
 {% block content %}
 <div class="container">
-    <h2>Catálogo de Sillas</h2>
     <div class="row">
-        {% for producto in productos %}
-        <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="{{ url_for('static', filename=producto.imagen) }}" class="card-img-top" alt="{{ producto.nombre }}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ producto.nombre }}</h5>
-                    <p class="card-text">{{ producto.descripcion }}</p>
-                    <p class="card-text"><b>{{ producto.precio }} €</b></p>
-                    <form action="{{ url_for('add_to_cart', producto_id=producto.id) }}" method="post">
-                        <button type="submit" class="btn btn-primary">Añadir al carrito</button>
-                    </form>
-                </div>
-            </div>
+      <article class="span12">
+        <h2>Catálogo de Sillas</h2>
+      </article> 
+    </div>
+    <div class="row">
+      <article class="span12">
+        <span class="txt-filter">Escoge tipo:</span>
+        <ul id="filters">
+          <li><a href="#" data-filter="*" class="selected">Todo</a></li>
+          <li><a href="#" data-filter=".ergonomica">Ergonómicas</a></li>
+          <li><a href="#" data-filter=".director">Director</a></li>
+          <li><a href="#" data-filter=".visitante">Visitante</a></li>
+          <li><a href="#" data-filter=".ruedas">Con ruedas</a></li>
+          <li><a href="#" data-filter=".infantil">Infantil</a></li>
+        </ul>
+      <div id="container" class="row">
+        <div class="element ergonomica">
+          <div class="block-thumbnail-2">
+            <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/productos/silla-ergonomica.jpg') }}" alt=""></figure>
+            <h3>Silla Ergonómica</h3>
+            <p>Para largas jornadas de trabajo.</p>
+            <a href="#" class="link">Ver más</a>
+          </div>
         </div>
-        {% endfor %}
+        <div class="element director">
+          <div class="block-thumbnail-2">
+            <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/productos/silla-director.jpg') }}" alt=""></figure>
+            <h3>Silla Director</h3>
+            <p>Elegancia y comodidad para ejecutivos.</p>
+            <a href="#" class="link">Ver más</a>
+          </div>
+        </div>
+        <div class="element visitante">
+          <div class="block-thumbnail-2">
+            <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/productos/silla-visitante.jpg') }}" alt=""></figure>
+            <h3>Silla Visitante</h3>
+            <p>Perfecta para áreas de espera.</p>
+            <a href="#" class="link">Ver más</a>
+          </div>
+        </div>
+        <div class="element ruedas">
+          <div class="block-thumbnail-2">
+            <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/productos/silla-con-ruedas.jpg') }}" alt=""></figure>
+            <h3>Silla con Ruedas</h3>
+            <p>Movilidad y practicidad en tu oficina.</p>
+            <a href="#" class="link">Ver más</a>
+          </div>
+        </div>
+        <div class="element infantil">
+          <div class="block-thumbnail-2">
+            <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/productos/silla-infantil.jpg') }}" alt=""></figure>
+            <h3>Silla Infantil</h3>
+            <p>Diseñada para los más pequeños.</p>
+            <a href="#" class="link">Ver más</a>
+          </div>
+        </div>
+      </div>
+      </article>
     </div>
 </div>
 {% endblock %}

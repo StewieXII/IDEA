@@ -1,30 +1,33 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Register</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-</head>
-<body>
-	<div class="container">
-        <div class="brand-logo"></div>
-        <div class="brand-title">Register</div>
-        <div class="inputs">
-          <form method="POST" action="{{ url_for('register') }}">
-            {{ form.hidden_tag() }}  <!-- Para incluir el token CSRF de Flask -->
+{% extends "base.html" %}
+{% block title %}Registro{% endblock %}
+{% block content %}
+<div class="container" style="max-width: 400px; margin: 50px auto;">
+    <div class="card p-4" style="background: #222; border-radius: 8px; color: #fff;">
+        <h2 class="text-center mb-4" style="color: #ff670d;">Registro de Usuario</h2>
 
-            <label>EMAIL</label>
-            {{ form.email(class="input", placeholder="example@test.com") }}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
-            <label>PASSWORD</label>
-            {{ form.contraseña(class="input", placeholder="Password") }}
-            
-            <button type="submit">Sign up</button>
-          </form>
+        <form method="POST" action="{{ url_for('register') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group mb-3">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control", placeholder="example@test.com") }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.contraseña.label(class="form-label") }}
+                {{ form.contraseña(class="form-control", placeholder="Contraseña") }}
+            </div>
+            <button type="submit" class="btn btn-1 w-100">Registrarse</button>
+        </form>
+        <div class="mt-3 text-center">
+            ¿Ya tienes cuenta? <a href="{{ url_for('login') }}" style="color: #ff670d;">Inicia sesión</a>
         </div>
-
-        <a href="{{ url_for('login') }}">Already have an account? Log in</a>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

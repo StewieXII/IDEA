@@ -1,8 +1,8 @@
 from flask import render_template, redirect, url_for, flash, request
-from flask_login import login_user, logout_user, login_required, current_user
 from . import app, db
-from .models import Usuario, Producto, Carrito
+from .models import Usuario, Producto, CarritoProducto
 from .forms import RegistroForm, LoginForm
+from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import login_manager
 
@@ -12,7 +12,7 @@ def load_user(user_id):
 
 @app.route('/')
 def home():
-    productos = Producto.query.limit(6).all()  # Muestra algunos productos en la home
+    productos = Producto.query.all()
     return render_template('home.html', productos=productos)
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -20,10 +20,7 @@ def register():
     form = RegistroForm()
     if form.validate_on_submit():
         hashed_pw = generate_password_hash(form.contraseña.data)
-        nuevo_usuario = Usuario(
-            email=form.email.data,
-            contraseña=hashed_pw
-        )
+        nuevo_usuario = Usuario(email=form.email.data, contraseña=hashed_pw)
         db.session.add(nuevo_usuario)
         db.session.commit()
         flash('Usuario registrado correctamente. Ahora puedes iniciar sesión.', 'success')
@@ -52,35 +49,43 @@ def logout():
 
 @app.route('/mesas')
 def mesas():
-    productos = Producto.query.filter_by(categoria='mesa').all()
+    productos = Producto.query.filter(Producto.nombre.ilike('%mesa%')).all()
     return render_template('mesas.html', productos=productos)
 
 @app.route('/sillas')
 def sillas():
-    productos = Producto.query.filter_by(categoria='silla').all()
+    productos = Producto.query.filter(Producto.nombre.ilike('%silla%')).all()
     return render_template('sillas.html', productos=productos)
 
 @app.route('/accesorios')
 def accesorios():
-    productos = Producto.query.filter_by(categoria='accesorio').all()
+    productos = Producto.query.filter(Producto.nombre.ilike('%accesorio%')).all()
     return render_template('accesorios.html', productos=productos)
-
-@app.route('/add_to_cart/<int:producto_id>', methods=['POST'])
-@login_required
-def add_to_cart(producto_id):
-    item = Carrito.query.filter_by(usuario_id=current_user.id, producto_id=producto_id).first()
-    if item:
-        item.cantidad += 1
-    else:
-        nuevo_item = Carrito(usuario_id=current_user.id, producto_id=producto_id, cantidad=1)
-        db.session.add(nuevo_item)
-    db.session.commit()
-    flash('Producto añadido al carrito', 'success')
-    return redirect(request.referrer or url_for('carrito'))
 
 @app.route('/carrito')
 @login_required
 def carrito():
-    items = Carrito.query.filter_by(usuario_id=current_user.id).all()
-    total = sum(item.producto.precio * item.cantidad for item in items)
-    return render_template('carrito.html', items=items, total=total)
+    items = CarritoProducto.query.filter_by(usuario_id=current_user.id).all()
+    return render_template('carrito.html', items=items)
+
+@app.route('/add_to_cart/<int:producto_id>', methods=['POST'])
+@login_required
+def add_to_cart(producto_id):
+    item = CarritoProducto.query.filter_by(usuario_id=current_user.id, producto_id=producto_id).first()
+    if item:
+        item.cantidad += 1
+    else:
+        nuevo_item = CarritoProducto(usuario_id=current_user.id, producto_id=producto_id, cantidad=1)
+        db.session.add(nuevo_item)
+    db.session.commit()
+    flash('Producto añadido al carrito.', 'success')
+    return redirect(request.referrer or url_for('home'))
+
+@app.route('/remove_from_cart/<int:item_id>', methods=['POST'])
+@login_required
+def remove_from_cart(item_id):
+    item = CarritoProducto.query.get_or_404(item_id)
+    db.session.delete(item)
+    db.session.commit()
+    flash('Producto eliminado del carrito.', 'info')
+    return redirect(url_for('carrito'))

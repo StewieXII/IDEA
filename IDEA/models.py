@@ -1,4 +1,4 @@
-from . import db
+from . import db  # Importar la instancia de db desde __init__.py
 from flask_login import UserMixin
 from datetime import datetime
 
@@ -14,17 +14,15 @@ class Usuario(db.Model, UserMixin):
 
 class Producto(db.Model):
     __tablename__ = 'productos'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nombre = db.Column(db.String(100), nullable=False)
-    descripcion = db.Column(db.Text)
+    descripcion = db.Column(db.Text, nullable=False)
     precio = db.Column(db.Float, nullable=False)
-    categoria = db.Column(db.String(50), nullable=False)  # 'mesa', 'silla', 'accesorio'
-    imagen = db.Column(db.String(255))  # Ruta a la imagen en static
+    imagen = db.Column(db.String(100), nullable=False)
 
-class Carrito(db.Model):
-    __tablename__ = 'carritos'
-    id = db.Column(db.Integer, primary_key=True)
+class CarritoProducto(db.Model):
+    __tablename__ = 'carrito_productos'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     usuario_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     producto_id = db.Column(db.Integer, db.ForeignKey('productos.id'))
     cantidad = db.Column(db.Integer, default=1)
-    producto = db.relationship('Producto')

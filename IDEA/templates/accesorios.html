@@ -1,24 +1,91 @@
-{% extends 'base.html' %}
-{% block title %}Catálogo de Accesorios{% endblock %}
+{% extends "base.html" %}
+{% block title %}Accesorios de Oficina{% endblock %}
+{% block extra_head %}
+<script src="{{ url_for('static', filename='js/jquery.isotope.min.js') }}"></script>
+<script>
+$(function(){
+  var $container = $('#container');
+  $container.isotope({ });
+  $('#filters a').click(function(){
+    var selector = $(this).attr('data-filter');
+    $container.isotope({ filter: selector });
+    $('#filters a').removeClass('selected');
+    $(this).addClass('selected');
+    return false;
+  });
+});
+</script>
+{% endblock %}
 {% block content %}
 <div class="container">
-    <h2>Catálogo de Accesorios</h2>
     <div class="row">
-        {% for producto in productos %}
-        <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="{{ url_for('static', filename=producto.imagen) }}" class="card-img-top" alt="{{ producto.nombre }}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ producto.nombre }}</h5>
-                    <p class="card-text">{{ producto.descripcion }}</p>
-                    <p class="card-text"><b>{{ producto.precio }} €</b></p>
-                    <form action="{{ url_for('add_to_cart', producto_id=producto.id) }}" method="post">
-                        <button type="submit" class="btn btn-primary">Añadir al carrito</button>
-                    </form>
-                </div>
-            </div>
+      <article class="span12">
+        <h2>Catálogo de Accesorios</h2>
+      </article> 
+    </div>
+    <div class="row">
+      <article class="span12">
+        <span class="txt-filter">Accesorios destacados:</span>
+        <ul id="filters">
+          <li><a href="#" data-filter="*" class="selected">Todo</a></li>
+          <li><a href="#" data-filter=".organizador">Organizador</a></li>
+          <li><a href="#" data-filter=".lampara">Lámpara</a></li>
+          <li><a href="#" data-filter=".soporte">Soporte</a></li>
+          <li><a href="#" data-filter=".reposapies">Reposapiés</a></li>
+          <li><a href="#" data-filter=".cajonera">Cajonera</a></li>
+          <li><a href="#" data-filter=".perchero">Perchero</a></li>
+        </ul>
+      <div id="container" class="row">
+        <div class="element organizador">
+          <div class="block-thumbnail-2">
+            <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/productos/organizador-escritorio.jpg') }}" alt=""></figure>
+            <h3>Organizador de escritorio</h3>
+            <p>Mantén tu espacio ordenado y práctico.</p>
+            <a href="#" class="link">Ver más</a>
+          </div>
         </div>
-        {% endfor %}
+        <div class="element lampara">
+          <div class="block-thumbnail-2">
+            <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/productos/lampara-led.jpg') }}" alt=""></figure>
+            <h3>Lámpara LED</h3>
+            <p>Luz eficiente para trabajar cómodo.</p>
+            <a href="#" class="link">Ver más</a>
+          </div>
+        </div>
+        <div class="element soporte">
+          <div class="block-thumbnail-2">
+            <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/productos/soporte-monitor.jpg') }}" alt=""></figure>
+            <h3>Soporte de monitor</h3>
+            <p>Para una posición ergonómica.</p>
+            <a href="#" class="link">Ver más</a>
+          </div>
+        </div>
+        <div class="element reposapies">
+          <div class="block-thumbnail-2">
+            <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/productos/reposapies.jpg') }}" alt=""></figure>
+            <h3>Reposapiés</h3>
+            <p>Descansa mejor mientras trabajas.</p>
+            <a href="#" class="link">Ver más</a>
+          </div>
+        </div>
+        <div class="element cajonera">
+          <div class="block-thumbnail-2">
+            <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/productos/cajonera-metalica.jpg') }}" alt=""></figure>
+            <h3>Cajonera metálica</h3>
+            <p>Almacenamiento seguro y práctico.</p>
+            <a href="#" class="link">Ver más</a>
+          </div>
+        </div>
+        <div class="element perchero">
+          <div class="block-thumbnail-2">
+            <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/productos/perchero-oficina.jpg') }}" alt=""></figure>
+            <h3>Perchero de oficina</h3>
+            <p>Para colgar tus prendas con estilo.</p>
+            <a href="#" class="link">Ver más</a>
+          </div>
+        </div>
+      </div>
+      </article>
     </div>
 </div>
 {% endblock %}

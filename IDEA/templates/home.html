@@ -1,25 +1,70 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block title %}Inicio - Mobiliario de Oficina{% endblock %}
 {% block content %}
-<div class="container">
-    <h2>Bienvenido a la tienda de mobiliario de oficina</h2>
-    <p>¡Descubre nuestros productos destacados!</p>
-    <div class="row">
-        {% for producto in productos %}
-        <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="{{ url_for('static', filename=producto.imagen) }}" class="card-img-top" alt="{{ producto.nombre }}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ producto.nombre }}</h5>
-                    <p class="card-text">{{ producto.descripcion }}</p>
-                    <p class="card-text"><b>{{ producto.precio }} €</b></p>
-                    <form action="{{ url_for('add_to_cart', producto_id=producto.id) }}" method="post">
-                        <button type="submit" class="btn btn-primary">Añadir al carrito</button>
-                    </form>
-                </div>
-            </div>
+<div class="list_carousel responsive">
+    <ul id="carousel-fred">
+        <li><img src="{{ url_for('static', filename='img/slide.jpg') }}" alt=""></li>
+        <li><img src="{{ url_for('static', filename='img/slide-1.jpg') }}" alt=""></li>
+        <li><img src="{{ url_for('static', filename='img/slide-2.jpg') }}" alt=""></li>
+        <li><img src="{{ url_for('static', filename='img/slide-3.jpg') }}" alt=""></li>
+        <li><img src="{{ url_for('static', filename='img/slide-4.jpg') }}" alt=""></li>
+    </ul>
+    <div class="div-control">
+        <a href="#" id="prev"></a>
+        <a href="#" id="next"></a>
+    </div>
+</div>
+<div class="light-content">
+    <div class="container">
+        <div class="row">
+            <ul class="thumbnails">
+                <li class="thumbnail span3">
+                    <div class="block-thumbnail maxheight">
+                        <figure class="img-polaroid"><img src="{{ url_for('static', filename='img/page-img.jpg') }}" alt=""></figure>
+                        <h2>Soluciones PRO</h2>
+                        <span class="font11">Ergonomía, calidad y diseño</span>
+                        <p>Descubre nuestras soluciones profesionales para tu espacio de trabajo.</p>
+                        <a href="#" class="btn btn-1">Seguir leyendo</a>
+                    </div>
+                </li>
+                <li class="thumbnail span3">
+                    <div class="block-thumbnail maxheight">
+                        <figure class="img-polaroid"><img src="{{ url_for('static', filename='img/page-img-1.jpg') }}" alt=""></figure>
+                        <h2>Materiales Eco</h2>
+                        <span class="font11">Respetuosos con el entorno</span>
+                        <p>Elige mobiliario fabricado con materiales sostenibles y reciclados.</p>
+                        <a href="#" class="btn btn-1">Seguir leyendo</a>
+                    </div>
+                </li>
+                <li class="thumbnail span3">
+                    <div class="block-thumbnail maxheight">
+                        <figure class="img-polaroid"><img src="{{ url_for('static', filename='img/page-img-2.jpg') }}" alt=""></figure>
+                        <h2>Consejos sobre diseño</h2>
+                        <span class="font11">Inspiración y tendencias</span>
+                        <p>Tips para decorar y optimizar tu oficina.</p>
+                        <a href="#" class="btn btn-1">Seguir leyendo</a>
+                    </div>
+                </li>
+                <li class="thumbnail span3">
+                    <div class="block-thumbnail maxheight">
+                        <figure class="img-polaroid"><img src="{{ url_for('static', filename='img/page-img-3.jpg') }}" alt=""></figure>
+                        <h2>IDEAs propias</h2>
+                        <span class="font11">Soluciones personalizadas</span>
+                        <p>Fabricamos tus ideas a medida. ¡Consúltanos!</p>
+                        <a href="#" class="btn btn-1">Seguir leyendo</a>
+                    </div>
+                </li>
+            </ul>
         </div>
-        {% endfor %}
+        <div class="row">
+            <article class="span12">
+                <div class="banner">
+                    <span><em>Hemos</em> lanzado  <strong><span>Nueva</span> colección</strong></span>
+                    <strong>Sé el primero en echarle un ojo al catálogo </strong>
+                    <p>Beciegast nveriti vitaesaert  asety kertya aset aplicabrde ertyasnemo <span>eniptaiades uytrsas</span> leyrterteertas bytrasa.</p>
+                </div>
+            </article>
+        </div>
     </div>
 </div>
 {% endblock %}

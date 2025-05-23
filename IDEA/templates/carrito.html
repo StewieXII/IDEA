@@ -1,20 +1,38 @@
-{% extends 'base.html' %}
-{% block title %}Tu Carrito{% endblock %}
+{% extends "base.html" %}
+{% block title %}Carrito de Compras{% endblock %}
 {% block content %}
 <div class="container">
-    <h2>Tu Carrito</h2>
-    {% if items %}
-    <ul>
-        {% for item in items %}
-        <li>
-            <b>{{ item.producto.nombre }}</b> ({{ item.cantidad }}) - {{ item.producto.precio }} € c/u
-        </li>
-        {% endfor %}
-    </ul>
-    <h4>Total: {{ total }} €</h4>
-    <a href="#" class="btn btn-success">Finalizar compra</a>
-    {% else %}
-    <p>No tienes productos en el carrito.</p>
-    {% endif %}
+    <div class="row">
+        <div class="span12">
+            <h2>Carrito de compras</h2>
+            {% if items %}
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Quitar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td>{{ item.producto.nombre }}</td>
+                        <td>{{ item.cantidad }}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('remove_from_cart', item_id=item.id) }}">
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="{{ url_for('checkout') }}" class="btn btn-success">Finalizar compra</a>
+            {% else %}
+            <p>No tienes productos en el carrito.</p>
+            {% endif %}
+        </div>
+    </div>
 </div>
 {% endblock %}

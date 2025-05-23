@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}¡Gracias por tu compra!{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <article class="span12" style="text-align:center;">
+            <h2>¡Gracias por confiar en Decore!</h2>
+            <p>Tu pedido ha sido recibido correctamente.<br>
+               Te enviaremos un correo con la confirmación y los detalles del envío.</p>
+            <a href="{{ url_for('home') }}" class="btn btn-1">Volver al inicio</a>
+        </article>
+    </div>
+</div>
+{% endblock %}
