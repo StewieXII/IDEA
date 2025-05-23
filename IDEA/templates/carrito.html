@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Tu Carrito{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>Tu Carrito</h2>
+    {% if items %}
+    <ul>
+        {% for item in items %}
+        <li>
+            <b>{{ item.producto.nombre }}</b> ({{ item.cantidad }}) - {{ item.producto.precio }} € c/u
+        </li>
+        {% endfor %}
+    </ul>
+    <h4>Total: {{ total }} €</h4>
+    <a href="#" class="btn btn-success">Finalizar compra</a>
+    {% else %}
+    <p>No tienes productos en el carrito.</p>
+    {% endif %}
+</div>
+{% endblock %}

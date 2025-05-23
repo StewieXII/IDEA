@@ -1,60 +1,24 @@
-{% extends "base.html" %}
-
-{% block title %}Catálogo - Mesas{% endblock %}
-
+{% extends 'base.html' %}
+{% block title %}Catálogo de Mesas{% endblock %}
 {% block content %}
 <div class="container">
-  <div class="row">
-    <article class="span12">
-      <h2>¿Has visto el catálogo?</h2>
-    </article>
-  </div>
-
-  <!-- Filtro -->
-  <div class="row">
-    <article class="span12">
-      <span class="txt-filter">Escoge categoría:</span>
-      <ul id="filters">
-        <li><a href="#" data-filter="*" class="selected">Todo</a></li>
-        <li><a href="#" data-filter=".dormitorios">Dormitorios</a></li>
-        <li><a href="#" data-filter=".salones">Salones</a></li>
-        <li><a href="#" data-filter=".oficinas">Oficinas</a></li>
-        <li><a href="#" data-filter=".baños">Baños</a></li>
-      </ul>
-
-      <!-- Catálogo -->
-      <div id="container" class="row">
-        {% for i in range(1, 8) %}
-        <div class="element {{ 'oficinas' if i % 2 == 0 else 'salones' }}">
-          <div class="block-thumbnail-2">
-            <figure class="img-polaroid-1">
-              <img src="{{ url_for('static', filename='img/page-2-img' ~ ('' if i == 1 else '-' ~ (i - 1)) ~ '.png') }}" alt="Producto {{ i }}">
-            </figure>
-            <h3>Producto {{ i }}</h3>
-            <p>Descripción breve del producto {{ i }}. Diseño moderno y funcional para tu oficina.</p>
-            <a href="#" class="link">Ver más</a>
-          </div>
+    <h2>Catálogo de Mesas</h2>
+    <div class="row">
+        {% for producto in productos %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="{{ url_for('static', filename=producto.imagen) }}" class="card-img-top" alt="{{ producto.nombre }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <p class="card-text">{{ producto.descripcion }}</p>
+                    <p class="card-text"><b>{{ producto.precio }} €</b></p>
+                    <form action="{{ url_for('add_to_cart', producto_id=producto.id) }}" method="post">
+                        <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                    </form>
+                </div>
+            </div>
         </div>
         {% endfor %}
-      </div>
-    </article>
-  </div>
+    </div>
 </div>
-
-<!-- Script de Isotope para filtros -->
-<script src="{{ url_for('static', filename='js/jquery.isotope.min.js') }}"></script>
-<script>
-$(function(){
-  var $container = $('#container');
-  $container.isotope();
-
-  $('#filters a').click(function(){
-    var selector = $(this).attr('data-filter');
-    $container.isotope({ filter: selector });
-    $('#filters .selected').removeClass('selected');
-    $(this).addClass('selected');
-    return false;
-  });
-});
-</script>
 {% endblock %}
