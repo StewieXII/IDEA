@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Pedido confirmado{% endblock %}
+{% block content %}
+<div class="container">
+    <h2>¡Compra realizada con éxito!</h2>
+    <p>Gracias por tu compra, {{ pedido.nombre }}.</p>
+    <p>Te enviaremos tu pedido a:</p>
+    <p><strong>{{ pedido.direccion_envio }}</strong></p>
+    <p><strong>Método de pago:</strong> {{ pedido.metodo_pago|capitalize }}</p>
+    <h4>Resumen:</h4>
+    <ul>
+        {% for prod in pedido.productos %}
+        <li>
+            {{ prod.cantidad }} x {{ prod.producto.nombre }} ({{ "%.2f"|format(prod.precio_unitario) }} € c/u)
+        </li>
+        {% endfor %}
+    </ul>
+    <p><strong>Total pagado: {{ "%.2f"|format(pedido.total) }} €</strong></p>
+    <a href="{{ url_for('home') }}" class="btn btn-primary">Volver a la tienda</a>
+</div>
+{% endblock %}

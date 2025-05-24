@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Mis Pedidos{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Histórico de Pedidos</h2>
+    {% if pedidos %}
+        <ul class="list-group">
+        {% for pedido in pedidos %}
+            <li class="list-group-item mb-4">
+                <strong>Pedido #{{ pedido.id }}</strong> - {{ pedido.fecha.strftime('%d/%m/%Y %H:%M') }}<br>
+                Total: {{ pedido.total }} €<br>
+                <ul>
+                    {% for item in pedido.productos %}
+                        <li>
+                            {{ item.cantidad }} x {{ item.producto.nombre }} ({{ item.precio_unitario }} €/u)
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tienes pedidos aún.</p>
+    {% endif %}
+</div>
+{% endblock %}

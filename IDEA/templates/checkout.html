@@ -1,13 +1,32 @@
 {% extends "base.html" %}
-{% block title %}Finalizar Compra{% endblock %}
+{% block title %}Finalizar compra{% endblock %}
 {% block content %}
 <div class="container">
-    <div class="row">
-        <div class="span12">
-            <h2>Finalizar compra</h2>
-            <p>¡Gracias por tu compra! Pronto recibirás un email de confirmación.</p>
-            <a href="{{ url_for('home') }}" class="btn btn-primary">Volver al inicio</a>
+    <h2>Finalizar compra</h2>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.nombre.label }}<br>
+            {{ form.nombre(class="form-control") }}
         </div>
-    </div>
+        <div>
+            {{ form.direccion_envio.label }}<br>
+            {{ form.direccion_envio(class="form-control") }}
+        </div>
+        <div>
+            {{ form.metodo_pago.label }}<br>
+            {{ form.metodo_pago(class="form-control") }}
+        </div>
+        <h4>Resumen del pedido:</h4>
+        <ul>
+        {% for item in items %}
+            <li>
+                {{ item.producto.nombre }} ({{ item.cantidad }}) - {{ "%.2f"|format(item.producto.precio) }} €
+            </li>
+        {% endfor %}
+        </ul>
+        <p><strong>Total: {{ "%.2f"|format(total) }} €</strong></p>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
 </div>
 {% endblock %}

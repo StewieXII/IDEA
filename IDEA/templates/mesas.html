@@ -36,41 +36,71 @@ $(function(){
       <div id="container" class="row">
         <div class="element ejecutiva">
           <div class="block-thumbnail-2">
-            <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/productos/mesa-ejecutiva.jpg') }}" alt=""></figure>
+            <figure class="img-polaroid-1">
+              <img src="{{ url_for('static', filename='img/productos/mesa-ejecutiva.jpg') }}" alt="">
+            </figure>
             <h3>Mesa Ejecutiva</h3> 
             <p>Mesa elegante para oficinas modernas.</p>
+            <span class="precio">259,99 €</span>
+            <form action="{{ url_for('add_to_cart', producto_id=1) }}" method="POST">
+              <button type="submit" class="btn btn-1">Añadir al carrito</button>
+            </form>
             <a href="#" class="link">Ver más</a>
           </div>
         </div>
         <div class="element operativa">
           <div class="block-thumbnail-2">
-            <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/productos/mesa-operativa.jpg') }}" alt=""></figure>
+            <figure class="img-polaroid-1">
+              <img src="{{ url_for('static', filename='img/productos/mesa-operativa.jpg') }}" alt="">
+            </figure>
             <h3>Mesa Operativa</h3>
             <p>Mesa práctica y funcional para trabajo diario.</p>
+            <span class="precio">149,99 €</span>
+            <form action="{{ url_for('add_to_cart', producto_id=2) }}" method="POST">
+              <button type="submit" class="btn btn-1">Añadir al carrito</button>
+            </form>
             <a href="#" class="link">Ver más</a>
           </div>
         </div>
         <div class="element reunion">
           <div class="block-thumbnail-2">
-            <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/productos/mesa-reunion.jpg') }}" alt=""></figure>
+            <figure class="img-polaroid-1">
+              <img src="{{ url_for('static', filename='img/productos/mesa-reunion.jpg') }}" alt="">
+            </figure>
             <h3>Mesa Reunión</h3>
             <p>Perfecta para salas de reuniones y juntas.</p>
+            <span class="precio">379,00 €</span>
+            <form action="{{ url_for('add_to_cart', producto_id=3) }}" method="POST">
+              <button type="submit" class="btn btn-1">Añadir al carrito</button>
+            </form>
             <a href="#" class="link">Ver más</a>
           </div>
         </div>
         <div class="element ejecutiva">
           <div class="block-thumbnail-2">
-            <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/productos/mesa-redonda.jpg') }}" alt=""></figure>
+            <figure class="img-polaroid-1">
+              <img src="{{ url_for('static', filename='img/productos/mesa-redonda.jpg') }}" alt="">
+            </figure>
             <h3>Mesa Redonda</h3>
             <p>Mesa redonda para espacios colaborativos.</p>
+            <span class="precio">210,00 €</span>
+            <form action="{{ url_for('add_to_cart', producto_id=4) }}" method="POST">
+              <button type="submit" class="btn btn-1">Añadir al carrito</button>
+            </form>
             <a href="#" class="link">Ver más</a>
           </div>
         </div>
         <div class="element plegables">
           <div class="block-thumbnail-2">
-            <figure class="img-polaroid-1"><img src="{{ url_for('static', filename='img/productos/mesa-plegable.jpg') }}" alt=""></figure>
+            <figure class="img-polaroid-1">
+              <img src="{{ url_for('static', filename='img/productos/mesa-plegable.jpg') }}" alt="">
+            </figure>
             <h3>Mesa Plegable</h3>
             <p>Fácil de guardar, ideal para salas multiusos.</p>
+            <span class="precio">120,50 €</span>
+            <form action="{{ url_for('add_to_cart', producto_id=5) }}" method="POST">
+              <button type="submit" class="btn btn-1">Añadir al carrito</button>
+            </form>
             <a href="#" class="link">Ver más</a>
           </div>
         </div>
